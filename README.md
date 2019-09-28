@@ -1,6 +1,10 @@
 # KSU Hackathon 2019 - Equifax's Problem
 
-## Files
+## Equifax Security Team 2
+
+Nelson Bonilla, Andrew Gavieres, Andrew Loveless
+
+### Files
 
 FilterLength - Creates a new dictionary based on length given, implements advanced parsing of ranges
 
