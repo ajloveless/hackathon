@@ -1,9 +1,14 @@
-//Andrew Loveless KSU Hackathon 2019 - 28/09/19
+//Andrew Loveless KSU Hackathon 2019 - 27/09/19
 
+import java.io.IOException;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.Scanner;
 import java.util.stream.Stream;
 import java.time.Duration;
@@ -61,9 +66,7 @@ public class Cracker
 
         Bruteforce bf = new Bruteforce(1,31); //Call bruteforce for all combinations of 1-31 characters
         bf.forEachRemaining(guess -> { //For each combination that is made
-        	System.out.println(guess);
-        	if (password.equals(guess)) //If it is correct 
-        	{ 
+        	if(password.equals(guess)) { //If it is correct
         		Instant endTime = Instant.now(); //Stop the timer
         		bruteSpeed = (double) Duration.between(startTime, endTime).toMillis()/1000; //See time elapsed in seconds
         		System.out.println("\n\nPassword found in " + bruteSpeed + " seconds: " + guess); //Print the correct guess
@@ -72,7 +75,7 @@ public class Cracker
         			//Continue to dictionary attack, where scanner will be closed
         			System.out.println("\n-----------------------\n\nDictionary attack:"); 
         			dictionary(password);
-        		} else scan.close(); System.exit(0);//Otherwise close scanner now
+        		} else scan.close(); //Otherwise close scanner now
         }});
     }
 
@@ -93,7 +96,6 @@ public class Cracker
 			scan.close(); //Close scanner
 	        lines.forEach(guess -> //For each guess
 	        {
-	        	System.out.println(guess);
 	        	if (guess.equals(password)) //If the guess is correct
 	        	{	    
 	        		Instant endTime = Instant.now(); //Stop timer
@@ -115,8 +117,8 @@ public class Cracker
 	private static void compareSpeed() 
 	{
 		if (dictSpeed < bruteSpeed) //If dictionary was faster
-			System.out.println("\n\nDictionary attack was faster by " + String.format("%.2f", (bruteSpeed-dictSpeed)/bruteSpeed*100) + "%"); //Print percent faster
-		else System.out.println("\n\nBruteforce attack was faster by " + String.format("%.2f", (dictSpeed-bruteSpeed)/dictSpeed*100)+ "%"); //Otherwise print for bruteforce
+			System.out.println("Dictionary attack was faster by " + String.format("%.2f", (bruteSpeed-dictSpeed)/bruteSpeed*100) + "%"); //Print percent faster
+		else System.out.println("Bruteforce attack was faster by " + String.format("%.2f", (dictSpeed-bruteSpeed)/dictSpeed*100)+ "%"); //Otherwise print for bruteforce
 		System.exit(0); //Exit the program
 
 	}
